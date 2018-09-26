@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.tree import DecisionTreeRegressor
 
 
-def CART(dataset):
+def CART(dataset, a=12, b=1, c=2):
 
     dataset = normalize(dataset)
     mre_list = []
@@ -15,7 +15,8 @@ def CART(dataset):
         test_input = test.iloc[:, :-1]
         test_actual_effort = test.iloc[:, -1]
         # max_depth: [1:12], min_samples_leaf: [1:12], min_samples_split: [1:20]
-        model = DecisionTreeRegressor(max_depth=12, min_samples_leaf=1, min_samples_split=2)
+
+        model = DecisionTreeRegressor(max_depth=a, min_samples_leaf=b, min_samples_split=c)
         model.fit(train_input, train_actual_effort)
         test_predict_effort = model.predict(test_input)
         test_predict_Y = test_predict_effort
