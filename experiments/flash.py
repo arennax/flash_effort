@@ -15,17 +15,16 @@ def convert(index):
 def FLASH():
     # random.seed(1)
     all_case = set(range(0, 2880))
-    initial_pool = random.sample(all_case, 10)
-    life = 10
-    List_X = []
-    List_Y = []
+    modeling_pool = random.sample(all_case, 10)
+    life = 3
 
     while life > 0:
-        i = 0
-        for i in range(10 + i):
-            List_X.append(convert(initial_pool[i]))
-            List_Y.append(CART(data_albrecht(), a=convert(initial_pool[i])[0],
-                               b=convert(initial_pool[i])[1], c=convert(initial_pool[i])[2]))
+        List_X = []
+        List_Y = []
+        for i in range(len(modeling_pool)):
+            List_X.append(convert(modeling_pool[i]))
+            List_Y.append(CART(data_albrecht(), a=convert(modeling_pool[i])[0],
+                               b=convert(modeling_pool[i])[1], c=convert(modeling_pool[i])[2]))
 
         # print(List_X)
         # print(List_Y)
@@ -33,7 +32,7 @@ def FLASH():
         upper_model = DecisionTreeRegressor()
         upper_model.fit(List_X, List_Y)
 
-        remain_pool = all_case - set(initial_pool)
+        remain_pool = all_case - set(modeling_pool)
 
         test_list = []
         for i in list(remain_pool):
@@ -43,23 +42,27 @@ def FLASH():
         p1 = upper_model.predict(test_list)
 
         # print(p1, np.argmin(p1), p1[np.argmin(p1)], min(p1))
-        new_member = np.argmin(p1)   ### there have bugs
-        initial_pool += [new_member]
-        i += 1
+        new_member = list(remain_pool)[np.argmin(p1)]   ### there have bugs
+        modeling_pool += [new_member]
         # remain_pool -= {new_member}
 
         new_member_mre = CART(data_albrecht(), a=convert(new_member)[0], b=convert(new_member)[1],
                               c=convert(new_member)[2])
-        if new_member_mre > np.median(List_Y):
+        if new_member_mre > 0.01: #np.median(List_Y):
             life -= 1
 
-    print(List_X)
-    print(len(List_X))
-    print(initial_pool)
-    print(len(initial_pool))
-    print(np.argmin(initial_pool))
-    return np.argmin(initial_pool)
+    final_X = []
+    final_Y = []
+    for i in range(len(modeling_pool)):
+        final_X.append(convert(modeling_pool[i]))
+        final_Y.append(CART(data_albrecht(), a=convert(modeling_pool[i])[0],
+                           b=convert(modeling_pool[i])[1], c=convert(modeling_pool[i])[2]))
 
+    best_index = np.argmin(final_Y)
+    best_config_id = modeling_pool[best_index]
+    best_config = convert(best_config_id)
+
+    return best_config
 
 
 if __name__ == '__main__':
