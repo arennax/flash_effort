@@ -12,7 +12,7 @@ def convert(index):
     return a, b, c
 
 
-def FLASH():
+def FLASH(dataset):
     # random.seed(1)
     all_case = set(range(0, 2880))
     modeling_pool = random.sample(all_case, 10)
@@ -46,7 +46,7 @@ def FLASH():
         modeling_pool += [new_member]
         # remain_pool -= {new_member}
 
-        new_member_mre = CART(data_albrecht(), a=convert(new_member)[0], b=convert(new_member)[1],
+        new_member_mre = CART(dataset, a=convert(new_member)[0], b=convert(new_member)[1],
                               c=convert(new_member)[2])
         if new_member_mre > 0.01: #np.median(List_Y):
             life -= 1
@@ -66,4 +66,4 @@ def FLASH():
 
 
 if __name__ == '__main__':
-    FLASH()
+    print(FLASH(data_albrecht()))
