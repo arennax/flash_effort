@@ -3,7 +3,7 @@ from experiments.learners import CART
 from experiments.flash import FLASH
 import numpy as np
 
-data = data_kitchenham()
+data = data_miyazaki()
 
 
 if __name__ == '__main__':
