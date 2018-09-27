@@ -48,7 +48,7 @@ def FLASH(dataset):
 
         new_member_mre = CART(dataset, a=convert(new_member)[0], b=convert(new_member)[1],
                               c=convert(new_member)[2])
-        if new_member_mre > 0.01: #np.median(List_Y):
+        if new_member_mre > np.median(List_Y):
             life -= 1
 
     final_X = []
