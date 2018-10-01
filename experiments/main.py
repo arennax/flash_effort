@@ -37,7 +37,6 @@ if __name__ == '__main__':
     print("runtime for CART0:", run_time1)
     print("runtime for FLASH_CART:", run_time2)
 
-    with open("./output/test_sk.csv", "w") as output:
-        writer = csv.writer(output, lineterminator=',')
-        for val in sorted(list_FLASH_CART):
-            writer.writerow([val])
+    with open("./output/test_sk.txt", "w") as output:
+        for i in sorted(list_FLASH_CART):
+            output.write(str(i)+" ")
