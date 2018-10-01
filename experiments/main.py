@@ -1,3 +1,5 @@
+import csv
+
 from data.data_to_use import *
 from experiments.learners import CART
 from experiments.flash import FLASH
@@ -35,3 +37,7 @@ if __name__ == '__main__':
     print("runtime for CART0:", run_time1)
     print("runtime for FLASH_CART:", run_time2)
 
+    with open("./output/test_sk.csv", "w") as output:
+        writer = csv.writer(output, lineterminator=',')
+        for val in sorted(list_FLASH_CART):
+            writer.writerow([val])
