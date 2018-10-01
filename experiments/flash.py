@@ -1,5 +1,5 @@
 import random
-from data.data_to_use import data_albrecht
+from data.data_to_use import *
 from experiments.learners import CART
 import numpy as np
 from sklearn.tree import DecisionTreeRegressor
@@ -16,7 +16,7 @@ def FLASH(dataset):
     # random.seed(1)
     all_case = set(range(0, 2880))
     modeling_pool = random.sample(all_case, 10)
-    life = 3
+    life = 5
 
     while life > 0:
         List_X = []
@@ -29,6 +29,7 @@ def FLASH(dataset):
         # print(List_X)
         # print(List_Y)
 
+        ### Upper level optimizier (cart)
         upper_model = DecisionTreeRegressor()
         upper_model.fit(List_X, List_Y)
 
@@ -41,14 +42,16 @@ def FLASH(dataset):
         # print(test_list)
         p1 = upper_model.predict(test_list)
 
-        # print(p1, np.argmin(p1), p1[np.argmin(p1)], min(p1))
-        new_member = list(remain_pool)[np.argmin(p1)]   ### there have bugs
+        # acquisition function
+        new_member = list(remain_pool)[np.argmin(p1).item()]  ######### for MRE
+        # new_member = list(remain_pool)[np.argmax(p1).item()]  ######### for SA
         modeling_pool += [new_member]
-        # remain_pool -= {new_member}
 
-        new_member_mre = CART(dataset, a=convert(new_member)[0], b=convert(new_member)[1],
+        new_member_fitness = CART(dataset, a=convert(new_member)[0], b=convert(new_member)[1],
                               c=convert(new_member)[2])
-        if new_member_mre > 0.01: #np.median(List_Y):
+
+        if new_member_fitness > np.median(List_Y):   ######### for MRE
+        # if new_member_fitness < np.median(List_Y):   ######### for SA
             life -= 1
 
     final_X = []
@@ -66,4 +69,4 @@ def FLASH(dataset):
 
 
 if __name__ == '__main__':
-    print(FLASH(data_albrecht()))
+    print(FLASH(data_finnish()))
