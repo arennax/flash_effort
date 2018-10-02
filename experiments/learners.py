@@ -29,8 +29,8 @@ def CART(dataset, a=12, b=1, c=2):
     mre_mean = np.mean(mre_list)   ######### for MRE
     sa_mean = np.mean(sa_list)   ######### for SA
 
-    return mre_mean   ######### for MRE
-    # return sa_mean   ######### for SA
+    # return mre_mean   ######### for MRE
+    return sa_mean   ######### for SA
 
 
 if __name__ == '__main__':

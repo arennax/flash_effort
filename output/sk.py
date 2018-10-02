@@ -536,7 +536,7 @@ if __name__ == '__main__':
 
 #How to use it :
 #Use Anaconda Prompt
-#type input.txt | python statis.py --text 30 --latex True >>output.txt
+#type input.txt | python2 sk.py --text 30 --latex True >>output.txt
 #applied in Python2, not work in Python3
 
 #type ..\output\resultComb\1-%bug-perf.txt | python statis.py --text 30 --latex True >>output.txt

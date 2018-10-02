@@ -1,5 +1,3 @@
-import csv
-
 from data.data_to_use import *
 from experiments.learners import CART
 from experiments.flash import FLASH
