@@ -3,6 +3,7 @@ from data.data_to_use import *
 from experiments.learners import CART
 import numpy as np
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 
 def convert(index):
@@ -31,6 +32,10 @@ def FLASH(dataset):
 
         ### Upper level optimizier (cart)
         upper_model = DecisionTreeRegressor()
+
+        ### Upper level optimizier (random forest)
+        # upper_model = RandomForestRegressor(max_depth=2, random_state=0, n_estimators=100)
+
         upper_model.fit(List_X, List_Y)
 
         remain_pool = all_case - set(modeling_pool)
@@ -47,6 +52,7 @@ def FLASH(dataset):
         new_member = list(remain_pool)[np.argmax(p1).item()]  ######### for SA
         modeling_pool += [new_member]
         new_config = convert(new_member)
+        # print(new_config)
         new_member_fitness = CART(dataset, a=new_config[0], b=new_config[1], c=new_config[2])
 
         # if new_member_fitness > np.median(List_Y):   ######### for MRE

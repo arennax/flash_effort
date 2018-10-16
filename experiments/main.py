@@ -4,7 +4,7 @@ from experiments.flash import FLASH
 import numpy as np
 import time
 
-data = data_albrecht()
+data = data_desharnais()
 repeats = 20
 
 
@@ -26,15 +26,16 @@ if __name__ == '__main__':
     print(sorted(list_CART))
     print(sorted(list_FLASH_CART))
 
-    print("median for CART0:", np.median(list_CART))
+    # print("median for CART0:", np.median(list_CART))
     print("median for FLASH_CART:", np.median(list_FLASH_CART))
 
-    print("mean for CART0:", np.mean(list_CART))
+    # print("mean for CART0:", np.mean(list_CART))
     print("mean for FLASH_CART:", np.mean(list_FLASH_CART))
 
-    print("runtime for CART0:", run_time1)
+    # print("runtime for CART0:", run_time1)
     print("runtime for FLASH_CART:", run_time2)
 
     with open("./output/test_sk.txt", "w") as output:
+        output.write("FLASH_CART" + '\n')
         for i in sorted(list_FLASH_CART):
             output.write(str(i)+" ")
